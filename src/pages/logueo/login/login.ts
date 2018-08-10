@@ -112,7 +112,9 @@ export class LoginPage {
       })
   }
   mensajeToast(msg:string){
-    this.toastNative.showShortBottom(msg);
+    this.toastNative.showShortBottom(msg).subscribe((toast)=>{
+      console.log(toast);
+    });
   }
   public cambiarPassword(){
     if (this.formLogin.get('user').valid) {
