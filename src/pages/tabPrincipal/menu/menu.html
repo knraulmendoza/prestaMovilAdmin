@@ -1,0 +1,47 @@
+<ion-menu [content]="content">
+    <ion-header no-border>
+      <ion-toolbar color="secondary">
+        <ion-title *ngIf="!selectCobro">{{getCobro}}</ion-title>
+      </ion-toolbar> 
+    </ion-header>
+    <ion-content>
+      <ion-list no-lines>
+        <ng-container *ngIf="!selectCobro">
+          <button  ion-item *ngFor="let page of listaPages" (click)="showPage(page.component)" menuClose>
+            <ion-icon name="home" item-end color="secondary"></ion-icon>
+            {{page.titulo}}
+          </button>
+        </ng-container>
+      </ion-list>
+      <h2 *ngIf="selectCobro">Seleccione un cobro</h2>
+      
+    </ion-content>
+    <ion-footer color="light">
+      <ion-list no-lines>
+        <button ion-item (click)="cerrarSesion()">salir <i item-end style="font-size: 25px" class="fas fa-sign-out-alt"></i></button>
+        <ion-item style="background-color: rgba(255, 255, 255, 0)">
+          <ion-label style="color: black">cobro</ion-label>
+          <ion-select [(ngModel)]="cobroSelect" interface="action-sheet" (ionChange)="select($event)">
+            <ion-option *ngFor="let cobro of cobros" value="{{cobro.id}}" menuClose>{{cobro.name}}</ion-option>
+            <ion-option value="new"><ion-icon name="add"></ion-icon>Nuevo cobro</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-footer>
+</ion-menu>
+<!-- <ion-header no-border>
+  <ion-navbar color="primary">
+      <button ion-button menuToggle icon-only>
+          <ion-icon name='menu'></ion-icon>
+      </button>
+      
+    <ion-title *ngIf="selectCobro">Sistema de prestamos</ion-title>
+    <ion-title *ngIf="!selectCobro">{{(getCobro | async)?.name}}</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="cerrarSession()">
+        cerrar
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header> -->
+<ion-nav #content [root]="rootPage"></ion-nav>

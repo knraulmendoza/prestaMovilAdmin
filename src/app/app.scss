@@ -14,3 +14,31 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+// .title.title-md {
+//     position: absolute;
+//     left: 0;
+//     top: 0;
+//     height: 100%;
+//     width: 100%;
+//     text-align: center;
+// }
+.toast-error{
+    >div{
+        background-color: map-get($colors, danger )!important;
+        text-align: center;
+        padding: 0%;
+        margin: 0%;
+    }
+}
+.toast-success{
+    >div{
+        background-color: map-get($colors, secondary )!important;
+        text-align: center;
+    }
+}
+
+.size-icon{
+    font-size: 1.7em;
+}
+   
