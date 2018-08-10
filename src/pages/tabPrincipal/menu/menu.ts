@@ -2,8 +2,6 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, Nav,LoadingController,ToastController } from 'ionic-angular';
 import { iCobro, iCuadre, iGastos } from "../../../interfaces/interfaces";
 
-import { tap } from "rxjs/operators";
-
 import { TabsPage } from '../tabs/tabs';
 import { CobrosPage } from '../../cobros/cobros';
 import { ShowMenuPage } from '../show-menu/show-menu';
@@ -97,7 +95,6 @@ export class MenuPage {
         this.globalSer.getCuadre={cobro:'',abonados:0,baseInicial:0,fecha:'',gastos:[],prestados:0,id:''};
         this.db.selectWhere('cuadre','cobro',e,1).subscribe(res=>{
           this.fecha.setDate(this.fecha.getDate()-1);
-          let dateAfter = `${this.fecha.getDate()}/${this.fecha.getMonth()+1}/${this.fecha.getFullYear()}`
           if (res.length > 0) {
             let gasto=0;
             let cuadre:iCuadre=res[res.length-1];

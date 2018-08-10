@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 // import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
 import { LoginPage } from '../pages/logueo/login/login';
-import { MenuPage } from '../pages/tabPrincipal/menu/menu';
 import { LogueoService } from "../services/logueo.service";
 // import { InicioPage } from '../pages/inicio/inicio';
 

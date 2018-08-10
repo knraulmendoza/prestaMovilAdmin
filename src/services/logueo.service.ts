@@ -26,8 +26,7 @@ export class LogueoService{
         return this.aouth.auth.currentUser;
     }
 
-    // public usuarios(name){
-    //     this.listaCobros = this.firestore.collection<iCobro>('cobro', ref=>ref.where('name','==',name));
-    //     return this.listaCobros.valueChanges();
-    // }
+    public updatePass(user){
+        return this.aouth.auth.sendPasswordResetEmail(user);
+    }
 }

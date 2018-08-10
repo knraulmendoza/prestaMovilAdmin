@@ -3,13 +3,10 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Network } from "@ionic-native/network";
 import { Toast } from "@ionic-native/toast";
 import { IonicPage, NavController, NavParams, Nav , LoadingController, ToastController} from 'ionic-angular';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 
 import { MenuPage } from '../../tabPrincipal/menu/menu';
-import { CambiarPasswordPage } from '../cambiar-password/cambiar-password';
 import { LogueoService } from '../../../services/logueo.service';
-import { iCobro, iPagos } from '../../../interfaces/interfaces';
 import { GlobalService } from '../../../services/globales.service';
 import { BdService } from '../../../services/bd.service';
 /**
@@ -39,7 +36,6 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public loading: LoadingController,
-    private aouth: AngularFireAuth,
     public toast: ToastController,
     public build: FormBuilder,
     private network:Network,
@@ -107,26 +103,26 @@ export class LoginPage {
             }, 5000);
           });
         }else{
-          this.toast.create({
-            message: "Este usuario no puede ingresar en esta app",
-            duration: 3000
-          }).present();
+          this.mensajeToast('Este usuario no puede ingresar en esta app');
           this.logueoSer.cerrarSesion();
         }
       })
       .catch(()=>{
-        this.toastNative.show('correo y/o contraseña invalida','3000','bottom').subscribe((toast)=>{
-          console.log(toast);
-        });
+        this.mensajeToast('correo y/o contraseña invalida');
       })
   }
+  mensajeToast(msg:string){
+    this.toastNative.showShortBottom(msg);
+  }
   public cambiarPassword(){
-    // if(localNavCtrl){
-    //   this.nav.push(CambiarPasswordPage);
-    // }else{
-    //   this.rootNavCtrl.push(CambiarPasswordPage);
-    // }
-    this.navCtrl.push(CambiarPasswordPage);
+    if (this.formLogin.get('user').valid) {
+      let user = `${this.formLogin.get('user').value}@gmail.com`
+      this.logueoSer.updatePass(user)
+      .then(() => {this.mensajeToast(`Verifique su correo electronico ${user}`)})
+      .catch(() => {this.mensajeToast('Este usuario no existe')});
+    }else {
+      this.mensajeToast('Ingrese el usuario');
+    }
   }
 
   /**
@@ -142,21 +138,4 @@ export class LoginPage {
     this.focu = false;
   }
 
-  // public loginGoogle(){
-  //   this.logueoSer.loginUser()
-  //   .then(()=>{
-  //       let cargar = this.loading.create({
-  //         content: "Cargando Espere...",
-  //         duration: 3000
-  //       });
-  //       cargar.present().then(()=>{
-  //         setTimeout(() => {
-  //           cargar.dismiss();
-  //         }, 5000);
-  //       });
-  //       setTimeout(() => {
-  //         this.navCtrl.setRoot(MenuPage);
-  //       }, 2000);
-  //   });
-  // }
 }
