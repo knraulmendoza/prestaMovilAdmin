@@ -165,7 +165,7 @@ export class NewPrestamoPage {
 
   prestamoJSON(form: FormGroup) {
     // this.fecha = new Date(this.fActual);
-    this.fecha.setDate(this.fecha.getDate()+parseInt(form.get("plazo").value));
+    this.fecha.setDate(this.fecha.getDate()+parseInt(form.get("plazo").value)+1);
     let inte = `1.${form.get("interes").value}`
     let presta = parseFloat(form.get("count").value) * 1000 *(parseFloat(inte))
     return {

@@ -54,8 +54,11 @@ export class PendientePage {
       this.listaClientes();
     });
   }
+  public absNum(num:number): number{
+    return Math.abs(num);
+  }
 
-  public restarFecha(f1, f2) {
+  public restarFecha(f1, f2): number{
     this.diasFaltantes=0;
     var aFecha1 = f1.split("/");
     var aFecha2 = f2.split("/");
@@ -63,7 +66,6 @@ export class PendientePage {
     var fFecha2 = Date.UTC(aFecha2[2], aFecha2[1] - 1, aFecha2[0]);
     var dif = fFecha1 - fFecha2;
     var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-    console.log(dias);
     this.diasFaltantes = dias;
     return dias;
   }

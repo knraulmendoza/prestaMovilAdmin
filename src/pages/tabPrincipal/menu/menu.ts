@@ -7,7 +7,7 @@ import { CobrosPage } from '../../cobros/cobros';
 import { ShowMenuPage } from '../show-menu/show-menu';
 import { MonitoreoPage } from "../../monitoreo/monitoreo";
 import { LogueoService } from '../../../services/logueo.service';
-import { LoginPage } from '../../logueo/login/login';
+import { LoginPage } from '../../login/login';
 import { GlobalService } from '../../../services/globales.service';
 import { BdService } from '../../../services/bd.service';
 import { ClientesPage } from '../../clientes/clientes';

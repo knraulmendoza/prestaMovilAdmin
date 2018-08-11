@@ -5,10 +5,10 @@ import { Toast, ToastOptions } from "@ionic-native/toast";
 import { IonicPage, NavController, NavParams, Nav , LoadingController, ToastController} from 'ionic-angular';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 
-import { MenuPage } from '../../tabPrincipal/menu/menu';
-import { LogueoService } from '../../../services/logueo.service';
-import { GlobalService } from '../../../services/globales.service';
-import { BdService } from '../../../services/bd.service';
+import { MenuPage } from '../tabPrincipal/menu/menu';
+import { LogueoService } from '../../services/logueo.service';
+import { GlobalService } from '../../services/globales.service';
+import { BdService } from '../../services/bd.service';
 /**
  * Generated class for the LoginPage page.
  *

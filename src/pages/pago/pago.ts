@@ -122,7 +122,7 @@ export class PagoPage {
     this.alerta
       .create({
         title: "Abonar",
-        inputs: [{ name: "pagar", placeholder: "Dinero a pagar" }],
+        inputs: [{ name: "pagar", placeholder: "Dinero a pagar",type: 'number' }],
         buttons: [
           {
             text: "Ok",

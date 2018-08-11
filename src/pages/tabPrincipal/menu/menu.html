@@ -21,8 +21,8 @@
         <button ion-item (click)="cerrarSesion()">salir <i item-end style="font-size: 25px" class="fas fa-sign-out-alt"></i></button>
         <ion-item style="background-color: rgba(255, 255, 255, 0)">
           <ion-label style="color: black">cobro</ion-label>
-          <ion-select [(ngModel)]="cobroSelect" interface="action-sheet" (ionChange)="select($event)">
-            <ion-option *ngFor="let cobro of cobros" value="{{cobro.id}}" menuClose>{{cobro.name}}</ion-option>
+          <ion-select [(ngModel)]="cobroSelect" interface="action-sheet" (ionChange)="select($event)" menuClose>
+            <ion-option *ngFor="let cobro of cobros" value="{{cobro.id}}" menuToggle>{{cobro.name}}</ion-option>
             <ion-option value="new"><ion-icon name="add"></ion-icon>Nuevo cobro</ion-option>
           </ion-select>
         </ion-item>

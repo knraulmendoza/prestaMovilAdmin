@@ -23,8 +23,7 @@ import { GastosPage } from "../pages/gastos/gastos";
 import { ChartModule } from "angular2-highcharts";
 import * as highcharts from 'highcharts';
 
-import { LoginPage } from '../pages/logueo/login/login';
-import { CambiarPasswordPage } from '../pages/logueo/cambiar-password/cambiar-password';
+import { LoginPage } from '../pages/login/login';
 
 import { CobrosPage } from '../pages/cobros/cobros';
 
@@ -79,7 +78,6 @@ export const firebaseConfig = {
     // MapComponent,
     // PersonComponent,
     // CarsDisponiblesComponent,
-    CambiarPasswordPage,
     GastosPage,
     ClientesPage
   ],
@@ -111,7 +109,6 @@ export const firebaseConfig = {
     // MapComponent,
     // PersonComponent,
     // CarsDisponiblesComponent,
-    CambiarPasswordPage,
     GastosPage,
     ClientesPage
   ],

@@ -50,7 +50,7 @@
                     <strong *ngIf="prestamo.fechaInicio==fechaActual">(Nuevo)</strong>
                   </p>
                   <p ion-text color="danger" *ngIf="restarFecha(prestamo.fechaFin,fechaActual) < 0">
-                    atrasado {{diasFaltantes | abs}} dias faltantes 
+                    Atrasado {{absNum(diasFaltantes)}} dias
                   </p>
                   <p ion-text color="pago" *ngIf="prestamo.pago">
                     Pago {{prestamo.pago | currency:"$":true:"1.0"}}

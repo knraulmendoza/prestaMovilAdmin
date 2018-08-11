@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController, AlertController } from 'ionic-angular';
+import { NavController, ToastController, AlertController, Events } from 'ionic-angular';
 import { BdService } from '../../../services/bd.service';
 import { GlobalService } from '../../../services/globales.service';
 import { iUsuario,iPrestamos,iPagos,iCuadre, iGastos } from '../../../interfaces/interfaces';
@@ -22,12 +22,17 @@ export class CuadrePage {
     public db: BdService,
     public globalSer: GlobalService,
     public toast:ToastController,
-    public alerta:AlertController
+    public alerta:AlertController,
+    public event: Events
   ) {
     this.fechaHoy=`${this.fecha.getDate()}/${this.fecha.getMonth()+1}/${this.fecha.getFullYear()}`;
     this.fecha.setDate(this.fecha.getDate()+1);
     this.fechaManiana=`${this.fecha.getDate()}/${this.fecha.getMonth()+1}/${this.fecha.getFullYear()}`;
-    this.countClientes();
+    event.subscribe("reloadDetails", () => {
+      //call methods to refresh content
+      this.countClientes();
+    });
+    
   }
   public countClientes(){
     this.db.selectWhere('cuadre','cobro',this.globalSer.getCobro.id,1).subscribe(res=>{
