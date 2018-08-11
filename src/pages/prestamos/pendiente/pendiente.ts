@@ -35,7 +35,8 @@ export class PendientePage {
   search: string = "";
   fechaActual = `${new Date().getDate()}/${new Date().getMonth() +
     1}/${new Date().getFullYear()}`;
-  resta:number;
+  // resta:number;
+  diasFaltantes:number;
   constructor(
     public app: App,
     public navCtrl: NavController,
@@ -55,12 +56,15 @@ export class PendientePage {
   }
 
   public restarFecha(f1, f2) {
+    this.diasFaltantes=0;
     var aFecha1 = f1.split("/");
     var aFecha2 = f2.split("/");
     var fFecha1 = Date.UTC(aFecha1[2], aFecha1[1] - 1, aFecha1[0]);
     var fFecha2 = Date.UTC(aFecha2[2], aFecha2[1] - 1, aFecha2[0]);
     var dif = fFecha1 - fFecha2;
     var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+    console.log(dias);
+    this.diasFaltantes = dias;
     return dias;
   }
 

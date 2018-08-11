@@ -41,4 +41,10 @@
 .size-icon{
     font-size: 1.7em;
 }
+
+.boton-minuscula{
+    >div{
+        text-transform: none;
+    }
+}
    

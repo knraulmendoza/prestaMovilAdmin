@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Network } from "@ionic-native/network";
-import { Toast } from "@ionic-native/toast";
+import { Toast, ToastOptions } from "@ionic-native/toast";
 import { IonicPage, NavController, NavParams, Nav , LoadingController, ToastController} from 'ionic-angular';
 import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 
@@ -47,7 +47,7 @@ export class LoginPage {
       this.rootNavCtrl = navParams.get('rootNavCtrl');
       this.formLogin = build.group({
         user:['',Validators.compose([Validators.required])],
-        password:['',Validators.compose([Validators.required])]
+        password:['',Validators.compose([Validators.required,Validators.minLength(6)])]
       });
     // this.rootNavCtrl = navParams.get('rootNavCtrl');
     
@@ -87,7 +87,7 @@ export class LoginPage {
   public logueo(){
     let user = `${this.formLogin.get('user').value}@gmail.com`
     let pass = this.formLogin.get('password').value;
-      this.logueoSer.loginUser(user,pass)
+      this.logueoSer.loginUser(user.toLowerCase(),pass)
       .then(()=>{
         let id = this.logueoSer.uid.uid;
         if (id=='gAiVRPn475QifdP7CgHOni8ezMs1') {
@@ -103,27 +103,60 @@ export class LoginPage {
             }, 5000);
           });
         }else{
-          this.mensajeToast('Este usuario no puede ingresar en esta app');
+          this.mensajeToast('Este usuario no puede ingresar en esta app',2);
           this.logueoSer.cerrarSesion();
         }
       })
       .catch(()=>{
-        this.mensajeToast('correo y/o contraseña invalida');
+        this.mensajeToast('correo y/o contraseña invalida',3);
       })
   }
-  mensajeToast(msg:string){
-    this.toastNative.showShortBottom(msg).subscribe((toast)=>{
-      console.log(toast);
-    });
+  mensajeToast(msg:string,key:number){
+    // let background_color:string='';
+    // let text_color:string='';
+    // switch (key) {
+    //   case 1:
+    //     background_color='#02E81D';
+    //     text_color='#fff';
+    //     break;
+    //   case 2:
+    //     background_color='#FF1429'
+    //     text_color='#fff';
+    //     break;
+    //   case 3:
+    //     background_color='#fff';
+    //     text_color='#02E81D';
+    //     break;
+    //   default:
+    //     break;
+    // }
+    // let opciones: ToastOptions = {
+    //   message: msg,
+    //   position:'bottom',
+    //   styling: {
+    //     backgroundColor:'#fff',
+    //     textColor:'#02E81D',
+    //   }
+    // }
+    // this.toastNative.showWithOptions({
+    //   message: msg,
+    //   duration:3000,
+    //   position:'bottom',
+    //   styling: {
+    //     backgroundColor:'#fff',
+    //     textColor:'#02E81D',
+    //   }
+    // }).subscribe((toast)=>{console.log(toast)});
+    this.toastNative.show(msg,'3000','bottom').subscribe((toast)=>{console.log(toast)})
   }
   public cambiarPassword(){
     if (this.formLogin.get('user').valid) {
       let user = `${this.formLogin.get('user').value}@gmail.com`
       this.logueoSer.updatePass(user)
-      .then(() => {this.mensajeToast(`Verifique su correo electronico ${user}`)})
-      .catch(() => {this.mensajeToast('Este usuario no existe')});
+      .then(() => {this.mensajeToast(`Verifique su correo electronico ${user}`,1)})
+      .catch(() => {this.mensajeToast('Este usuario no existe',2)});
     }else {
-      this.mensajeToast('Ingrese el usuario');
+      this.mensajeToast('Ingrese el usuario',3);
     }
   }
 
