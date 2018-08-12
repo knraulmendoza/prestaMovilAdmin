@@ -32,14 +32,13 @@ export class CuadrePage {
       //call methods to refresh content
       this.countClientes();
     });
-    
+    this.countClientes();
   }
   public countClientes(){
-    this.db.selectWhere('cuadre','cobro',this.globalSer.getCobro.id,1).subscribe(res=>{
+    this.db.selectWhere('cuadre','cobro',this.globalSer.getCobro.id,1).subscribe((res:iCuadre[])=>{
       let gasto:number=0;
-      if (res.length >0) {
-        let cuadre:iCuadre=res[res.length-1];
-        if (cuadre.fecha == "") {
+      res.forEach(cuadre => {
+        if (cuadre.fecha === '') {
           cuadre.gastos.forEach((gast:iGastos) => {
             gasto+=gast.dinero;
           });
@@ -51,7 +50,8 @@ export class CuadrePage {
             this.total = (cuadre.baseInicial-cuadre.prestados-gasto)+cuadre.abonados;
           }
         }
-      }
+      });
+      console.log(gasto)
       this.db.selectWhere('cliente','cobro',this.globalSer.getCobro.id,1).subscribe((cliList)=>{
         this.dinero=[0,0,(gasto/1000),(this.globalSer.getCuadre.baseInicial/1000),0,0];
         this.count=[0,0,0,0];
@@ -89,7 +89,7 @@ export class CuadrePage {
     
   }
   ionViewDidEnter() {
-    this.db.selectWhere('cuadre','cobro',this.globalSer.getCobro.id,2,'fecha',this.globalSer.getCuadre.fecha).subscribe((res:iCuadre[])=>{
+    this.db.selectWhere('cuadre','cobro',this.globalSer.getCobro.id,2,'fecha','').subscribe((res:iCuadre[])=>{
       this.dinero[2]=0;
       if(res.length > 0 ) {
         let gasto:iGastos[]=[];

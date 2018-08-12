@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { iCobro } from '../../../interfaces/interfaces';
 import { BdService } from '../../../services/bd.service';
+import { Toast } from '@ionic-native/toast';
 
 /**
  * Generated class for the ShowMenuPage page.
@@ -18,7 +19,7 @@ import { BdService } from '../../../services/bd.service';
 export class ShowMenuPage {
   chartOptions: any;
   cobros:iCobro[];
-  constructor(public navCtrl: NavController, public navParams: NavParams, public db: BdService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public db: BdService,public toast: Toast) {
     this.chartOptions = {
       chart: {
         type: 'bar'
@@ -95,17 +96,18 @@ export class ShowMenuPage {
           this.cobros = cobrs;
       })
   }
+  public mensajeToast(msg:string){
+      this.toast.showShortBottom(msg).subscribe(toasts=>{console.log(toasts)})
+  }
   public cambiarState(e,cobro:iCobro){
-    console.log(`${e.checked} - ${cobro.name}`);
-    
     this.db.updateCobro(e.checked,cobro.id)
     .then(()=>{
         if (e.checked) {
-            console.log('Este usuario esta activo');
-        } else console.log('Este usuario esta inactivo');
+            this.mensajeToast(`El cobro ${cobro.name} esta activo`);
+        } else this.mensajeToast(`El cobro ${cobro.name} esta inactivo`);
     })
     .catch((error)=>{
-        console.error(error)
+        this.mensajeToast('Error verifique su conectividad');
     })
   }
 }

@@ -48,7 +48,7 @@ export class GastosPage {
   }
 
   public listaGasto(){
-    this.db.selectWhere('cuadre','cobro',this.globalSer.getCobro.id,2,'fecha',this.fechaHoy).subscribe((res:iCuadre[])=>{ 
+    this.db.selectWhere('cuadre','cobro',this.globalSer.getCobro.id,2,'fecha','').subscribe((res:iCuadre[])=>{ 
       if(res.length > 0 ) {
         this.cuadreId = res[0].id;
         let gastos:iGastos[]=[];

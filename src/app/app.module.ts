@@ -37,20 +37,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { Network } from "@ionic-native/network";
 import { Toast } from "@ionic-native/toast";
 
-// import { SuperTabsModule } from 'ionic2-super-tabs';
-
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore';
-// import { Firebase } from "@ionic-native/firebase";
-
-// import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { GlobalService } from '../services/globales.service';
 import { BdService } from '../services/bd.service';
 import { ClientesPage } from '../pages/clientes/clientes';
-// import { AngularFireOfflineModule } from "angularfire2-offline";
-// import * as firebase from "firebase";
-
 
 
 export const firebaseConfig = {
@@ -61,7 +53,6 @@ export const firebaseConfig = {
   storageBucket: "dbprestamos-4710.appspot.com",
   messagingSenderId: "549457564403"
 };
-// firebase.initializeApp(firebaseConfig);
 @NgModule({
   declarations: [
     MyApp,
@@ -85,13 +76,11 @@ export const firebaseConfig = {
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    // SuperTabsModule.forRoot(),
     ChartModule.forRoot(highcharts),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    // AngularFireOfflineModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
