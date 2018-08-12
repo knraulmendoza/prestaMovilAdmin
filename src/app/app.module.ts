@@ -88,7 +88,7 @@ export const firebaseConfig = {
     // SuperTabsModule.forRoot(),
     ChartModule.forRoot(highcharts),
     AngularFireModule.initializeApp(firebaseConfig),
-    // AngularFirestoreModule.enablePersistence(),
+    AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     AngularFireAuthModule,
     // AngularFireOfflineModule

@@ -14,7 +14,7 @@ import { MenuPage } from '../pages/tabPrincipal/menu/menu';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any=LoginPage;
+  rootPage:any;
   constructor(
     platform: Platform,
     statusBar: StatusBar,
@@ -25,23 +25,30 @@ export class MyApp {
     platform.ready().then(() => {
       statusBar.backgroundColorByHexString('#1A652B');
       statusBar.isVisible;
-      logueoSer.Session.subscribe((sesion)=>{
-        if (sesion) {
-          if (logueoSer.uid.uid === 'gAiVRPn475QifdP7CgHOni8ezMs1') {
-            setTimeout(() => {
-              this.rootPage=MenuPage;
-            }, 2000);
-          }else{
-            this.rootPage=LoginPage;
-            logueoSer.cerrarSesion();
-          }
-        } else {
-          this.rootPage = LoginPage;
-        }
-      })
-      setTimeout(() => {
-        splashScreen.hide();
-      }, 100);
+    //   logueoSer.Session.subscribe((sesion)=>{
+    //     if (sesion) {
+    //       if (logueoSer.uid.uid === 'gAiVRPn475QifdP7CgHOni8ezMs1') {
+    //         setTimeout(() => {
+    //           this.rootPage=MenuPage;
+    //         }, 2000);
+    //       }else{
+    //         this.rootPage=LoginPage;
+    //         // logueoSer.cerrarSesion();
+    //       }
+    //     } else {
+    //       this.rootPage = LoginPage;
+    //     }
+    //   })
+    //   setTimeout(() => {
+    //     splashScreen.hide();
+    //   }, 100);
+    });
+    logueoSer.Session.subscribe(user =>{
+      if (user) {
+        this.rootPage = MenuPage
+      }else {
+        this.rootPage = LoginPage;
+      }
     });
   }
 }

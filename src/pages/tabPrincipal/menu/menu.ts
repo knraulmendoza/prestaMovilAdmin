@@ -128,13 +128,13 @@ export class MenuPage {
     .then(()=>{
       let cargando =this.loading.create({
         content:'Cerrando sesión',
-        duration:4000,
+        duration:3000,
       });
       cargando.present().then(()=>{
         setTimeout(() => {
           this.navCtrl.setRoot(LoginPage);
           cargando.dismiss();
-        }, 3000);
+        }, 4000);
       });
       
     });
