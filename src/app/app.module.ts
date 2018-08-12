@@ -5,6 +5,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Geolocation } from '@ionic-native/geolocation';
 import { FirebaseMessaging } from "@ionic-native/firebase-messaging";
+import { Device } from "@ionic-native/device";
 
 import { CuadrePage } from '../pages/tabPrincipal/cuadre/cuadre';
 import { TabsPage } from '../pages/tabPrincipal/tabs/tabs';
@@ -115,6 +116,7 @@ export const firebaseConfig = {
     AngularFirestore,
     BdService,
     FirebaseMessaging,
+    Device,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

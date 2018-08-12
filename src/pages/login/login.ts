@@ -7,6 +7,7 @@ import { FirebaseMessaging } from '@ionic-native/firebase-messaging';
 import { LogueoService } from '../../services/logueo.service';
 import { GlobalService } from '../../services/globales.service';
 import { BdService } from '../../services/bd.service';
+import { Device } from '@ionic-native/device';
 /**
  * Generated class for the LoginPage page.
  *
@@ -41,14 +42,14 @@ export class LoginPage {
     public globalSer:GlobalService,
     public db:BdService,
     public firebaseMsg: FirebaseMessaging,
+    public device:Device,
     public logueoSer:LogueoService) {
       this.rootNavCtrl = navParams.get('rootNavCtrl');
       this.formLogin = build.group({
         user:['',Validators.compose([Validators.required])],
         password:['',Validators.compose([Validators.required,Validators.minLength(6)])]
       });
-    // this.rootNavCtrl = navParams.get('rootNavCtrl');
-    
+    console.log(`${device.model} - ${device.manufacturer} uid: ${device.uuid} platform: ${device.platform} `);
   }
   ionViewDidEnter(){
     // console.log(this.logueoSer.uid.uid);
