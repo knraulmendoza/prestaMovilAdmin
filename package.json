@@ -21,6 +21,7 @@
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/core": "~4.10.0",
+    "@ionic-native/device": "^4.11.0",
     "@ionic-native/firebase-messaging": "^4.11.0",
     "@ionic-native/geolocation": "^4.10.1",
     "@ionic-native/network": "^4.10.1",
