@@ -4,8 +4,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 // import { Push, PushObject, PushOptions } from '@ionic-native/push';
 
-import { LoginPage } from '../pages/logueo/login/login';
+import { LoginPage } from '../pages/login/login';
 import { LogueoService } from "../services/logueo.service";
+import { MenuPage } from '../pages/tabPrincipal/menu/menu';
 // import { InicioPage } from '../pages/inicio/inicio';
 
 
@@ -22,35 +23,25 @@ export class MyApp {
     // private push: Push
   ) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      // statusBar.styleDefault();
       statusBar.backgroundColorByHexString('#1A652B');
       statusBar.isVisible;
-      splashScreen.hide();
+      logueoSer.Session.subscribe((sesion)=>{
+        if (sesion) {
+          if (logueoSer.uid.uid === 'gAiVRPn475QifdP7CgHOni8ezMs1') {
+            setTimeout(() => {
+              this.rootPage=MenuPage;
+            }, 2000);
+          }else{
+            this.rootPage=LoginPage;
+            logueoSer.cerrarSesion();
+          }
+        } else {
+          this.rootPage = LoginPage;
+        }
+      })
+      setTimeout(() => {
+        splashScreen.hide();
+      }, 100);
     });
-    
-    // platform.ready()
-    // .then(()=>{
-    //   logueoSer.Session.subscribe((session)=>{
-    //     if (session) {
-    //       let id = logueoSer.uid.uid;
-    //       console.log(id);
-    //       if (id=='gAiVRPn475QifdP7CgHOni8ezMs1') {
-    //         setTimeout(() => {
-    //           this.rootPage=MenuPage;
-    //         }, 2000);
-    //       }else{
-    //         this.rootPage= LoginPage;
-    //         this.logueoSer.cerrarSesion();
-    //       }
-    //     }else{
-    //       this.rootPage= LoginPage;
-    //     }
-    //   })
-    //   setTimeout(()=>{
-    //     splashScreen.hide();
-    //   },100);
-    // });
   }
 }
