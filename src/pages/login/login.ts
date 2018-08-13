@@ -49,7 +49,6 @@ export class LoginPage {
         user:['',Validators.compose([Validators.required])],
         password:['',Validators.compose([Validators.required,Validators.minLength(6)])]
       });
-    console.log(`${device.model} - ${device.manufacturer} uid: ${device.uuid} platform: ${device.platform} `);
   }
   ionViewDidEnter(){
     // console.log(this.logueoSer.uid.uid);
