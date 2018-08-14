@@ -81,27 +81,26 @@ export class LoginPage {
   getToken() {
     this.firebaseMsg.getToken().then((_token) => {
       let token = {
-        token: _token,
-        users: [{rol:1,user:'administrador',fecha : `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`}],
+        users: [{rol:1,user:'administrador',token: _token,fecha : `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`}],
         modelo: this.device.model,
         device: this.device.manufacturer,
       }
-      let tablaDevice = this.db.getDatos('devices',_token,1);
+      let tablaDevice = this.db.getDatos('devices',this.device.uuid,1);
       tablaDevice.ref.get().then(ok => {
         if (ok.exists) {
           tablaDevice.valueChanges().subscribe(res => {
               console.log('existe');
               token = res;
               if (!this.buscarUser(res.users)) {
-                token.users.push({rol:1,user:'admistrador',fecha : `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`});
+                token.users.push({rol:1,user:'admistrador',token: _token,fecha : `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`});
               }
-              this.db.add('devices',token,2,_token).then(() => {
+              this.db.add('devices',token,2,this.device.uuid).then(() => {
                 console.log('funciono')
               }).catch((err) => console.log(err));
           });
         }else{
           console.log('la tabla no existe');
-          this.db.add('devices',token,2,_token).then(() => {
+          this.db.add('devices',token,2,this.device.uuid).then(() => {
             console.log('funciono')
           }).catch((err) => console.log(err));
         }
