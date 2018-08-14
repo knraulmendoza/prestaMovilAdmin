@@ -29,8 +29,6 @@ export class LoginPage {
   // user = {} as User;
   focu: boolean = false;
   public formLogin:FormGroup;
-  // user: string;
-  // pass: string;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -70,15 +68,44 @@ export class LoginPage {
       }).present();
     },error=>console.error('error'));
   }
+
+  buscarUser(user){
+    let bandera=false;
+    user.forEach(element => {
+      if (element.user === 'administrador') {
+        bandera = true;
+      }
+    });
+    return bandera;
+  }
   getToken() {
     this.firebaseMsg.getToken().then((_token) => {
       let token = {
-        token: _token
+        token: _token,
+        users: [{rol:1,user:'administrador',fecha : `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`}],
+        modelo: this.device.model,
+        device: this.device.manufacturer,
       }
-      console.log(`token: ${_token} y jsonToken: ${token.token}`);
-      this.db.add('devices',token,2,_token).then(() => {
-        console.log('funciono')
-      }).catch((err) => console.log(err));
+      let tablaDevice = this.db.getDatos('devices',_token,1);
+      tablaDevice.ref.get().then(ok => {
+        if (ok.exists) {
+          tablaDevice.valueChanges().subscribe(res => {
+              console.log('existe');
+              token = res;
+              if (!this.buscarUser(res.users)) {
+                token.users.push({rol:1,user:'admistrador',fecha : `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`});
+              }
+              this.db.add('devices',token,2,_token).then(() => {
+                console.log('funciono')
+              }).catch((err) => console.log(err));
+          });
+        }else{
+          console.log('la tabla no existe');
+          this.db.add('devices',token,2,_token).then(() => {
+            console.log('funciono')
+          }).catch((err) => console.log(err));
+        }
+      });
     })
     
   }
