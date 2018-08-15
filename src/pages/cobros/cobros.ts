@@ -68,7 +68,7 @@ export class CobrosPage {
       dinerInicial:parseFloat(form.get('dineroInicial').value)*1000,
       dinerFinal:parseFloat(form.get('dineroInicial').value)*1000,
       pass:form.get('pass').value,
-      state:true
+      state:true,
     } as iCobro
   }
 
@@ -85,11 +85,10 @@ export class CobrosPage {
       if (this.cobro.pass != this.formCobros.get('repitPass').value) {
         this.toastMensaje('las contraseñas no son iguales',2000,'toast-error');
       }else{
-        console.log(this.cobro)
         let user = `${this.cobro.name}@gmail.com`;
         this.loginSer.createUser(user,this.cobro.pass)
         .then((res)=>{
-          console.log('usuario creado'+res.user.uid);
+          this.cobro.id = res.user.uid;
           this.db.add('cobro',this.cobro,2,res.user.uid)
           // this.cobroSer.newCobro(this.cobro)
           .then(()=>{

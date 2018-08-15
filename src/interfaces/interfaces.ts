@@ -5,7 +5,7 @@ export interface iCobro{
     dinerFinal:number;
     pass:string;
     state:boolean;
-    id?:string;
+    id:string;
 }
 
 export interface iUsuario{

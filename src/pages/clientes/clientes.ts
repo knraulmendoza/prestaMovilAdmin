@@ -17,11 +17,11 @@ import { GlobalService } from '../../services/globales.service';
   templateUrl: 'clientes.html',
 })
 export class ClientesPage {
-
+  dateHoy = `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`;
   clientes:any[]=[];
   cancelados:number=0;
   activos:number=0;
-  can=[]
+  can=[];
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: BdService,public globalSer:GlobalService) {
     this.listaClientes();
   }
@@ -30,6 +30,25 @@ export class ClientesPage {
     console.log('ionViewDidLoad ClientesPage');
   }
 
+  public restarFecha(f1, f2): number{
+    var aFecha1 = f1.split("/");
+    var aFecha2 = f2.split("/");
+    var fFecha1 = Date.UTC(aFecha1[2], aFecha1[1] - 1, aFecha1[0]);
+    var fFecha2 = Date.UTC(aFecha2[2], aFecha2[1] - 1, aFecha2[0]);
+    var dif = fFecha1 - fFecha2;
+    var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+    return dias;
+  }
+  mensaje(f1,f2){
+    let res = this.restarFecha(f1,f2);
+    let respuesta = {msg:null,color:null};
+    if (res < 0) {
+      respuesta = {msg:'A',color:'pago'};
+    } else {
+      respuesta = {msg:'Ok',color:'primary'};
+    }
+    return respuesta;
+  }
   buscarCLiente(cli: iUsuario, pres: iPrestamos, pago: iPagos) {
     let bandera = false;
     let prestamo;
@@ -43,14 +62,18 @@ export class ClientesPage {
     });
     if (bandera) {
       if (ind != -1) {
-            prestamo.resta = pago.resta;
+        if (pago != null) {
+          prestamo.resta = pago.resta;
+          prestamo.fechaPago = pago.fechaPago;
+        }
         this.clientes[ind].prestamos.push(prestamo);
       }
     } else {
       cli.prestamos = [];
       prestamo = pres;
       if (pago != null) {
-          prestamo.resta = pago.resta;
+        prestamo.resta = pago.resta;
+        prestamo.fechaPago = pago.fechaPago;
       }
       cli.prestamos.push(prestamo);
       this.clientes.push(cli);
@@ -75,11 +98,6 @@ export class ClientesPage {
           })
         });
       });
-      console.log(this.clientes.length)
-      let clients = this.clientes;
-      clients.forEach(element => {
-        console.log(element)
-      });
       // let ind;
       let canc=0;
       let act=0;
@@ -97,7 +115,6 @@ export class ClientesPage {
       this.can.forEach(res => {
         this.clientes[res.index].cancelados=res.cancelados;
         this.clientes[res.index].activos=res.activos;
-        console.log(this.clientes[res.index])
       });
       
     });

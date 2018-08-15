@@ -35,8 +35,14 @@
         </ion-item-divider>
         <div *ngIf="cliente.open">
           <ion-item *ngFor="let pres of cliente.prestamos">
-              <ion-label ion-text [class.colorText]="!pro?.state">{{pres.countPrestamo}} <strong ion-text color="danger" *ngIf="pres.resta == 0">Cancelados</strong></ion-label>
-              <ion-icon *ngIf="pro?.state" name="checkmark" color="secondary" item-end></ion-icon>
+
+            <ion-label ion-text [class.colorText]="!pro?.state">{{pres.countPrestamo}}</ion-label>
+
+            <strong ion-text color="danger" *ngIf="pres.resta == 0" item-end>Cancelados <strong ion-text [color]="mensaje(pres.fechaFin,pres.fechaPago).color">({{mensaje(pres.fechaFin,pres.fechaPago).msg}})</strong></strong>
+            <strong ion-text color="secondary" *ngIf="pres.fechaInicio == dateHoy" item-end>Nuevo</strong>
+            <strong ion-text color="pago" *ngIf="restarFecha(pres.fechaFin,dateHoy) < 0 && pres.resta != 0" item-end>Atrasado</strong>
+            <strong ion-text color="primary" *ngIf="pres.state === false && restarFecha(pres.fechaFin,dateHoy) > 0" item-end>Pendiente</strong>
+            <ion-icon *ngIf="pro?.state" name="checkmark" color="secondary" item-end></ion-icon>
           </ion-item>
         </div>
       </ng-container>
