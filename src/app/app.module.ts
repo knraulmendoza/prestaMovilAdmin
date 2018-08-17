@@ -44,6 +44,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { GlobalService } from '../services/globales.service';
 import { BdService } from '../services/bd.service';
 import { ClientesPage } from '../pages/clientes/clientes';
+import { DevicesPage } from '../pages/devices/devices';
 
 
 export const firebaseConfig = {
@@ -71,7 +72,8 @@ export const firebaseConfig = {
     // PersonComponent,
     // CarsDisponiblesComponent,
     GastosPage,
-    ClientesPage
+    ClientesPage,
+    DevicesPage
   ],
   imports: [
     BrowserModule,
@@ -100,7 +102,8 @@ export const firebaseConfig = {
     // PersonComponent,
     // CarsDisponiblesComponent,
     GastosPage,
-    ClientesPage
+    ClientesPage,
+    DevicesPage
   ],
   providers: [
     StatusBar,

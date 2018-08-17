@@ -11,6 +11,7 @@ import { LoginPage } from '../../login/login';
 import { GlobalService } from '../../../services/globales.service';
 import { BdService } from '../../../services/bd.service';
 import { ClientesPage } from '../../clientes/clientes';
+import { DevicesPage } from '../../devices/devices';
 // import { CloudMsgServices } from '../../../services/cloudMsg.service';
 /**
  * Generated class for the MenuPage page.
@@ -36,6 +37,10 @@ export class MenuPage {
   listaPages=[
     {titulo:'Inicio', component: ShowMenuPage},
     {titulo:'Monitoreo', component: MonitoreoPage},
+    {titulo:'Dispositivos', component: DevicesPage}
+  ]
+
+  listaPagesCobro = [
     {titulo:'Cobro', component:TabsPage},
     {titulo:'Clientes',component:ClientesPage}
   ]

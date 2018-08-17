@@ -6,15 +6,17 @@
     </ion-header>
     <ion-content>
       <ion-list no-lines>
+        <button ion-item *ngFor="let page of listaPages" (click)="showPage(page.component)" menuClose>
+          {{page.titulo}}
+        </button>
+        <hr/>
         <ng-container *ngIf="!selectCobro">
-          <button  ion-item *ngFor="let page of listaPages" (click)="showPage(page.component)" menuClose>
+          <button  ion-item *ngFor="let pageCobro of listaPagesCobro" (click)="showPage(pageCobro.component)" menuClose>
             <ion-icon name="home" item-end color="secondary"></ion-icon>
-            {{page.titulo}}
+            {{pageCobro.titulo}}
           </button>
         </ng-container>
       </ion-list>
-      <h2 *ngIf="selectCobro" text-center>Seleccione un cobro</h2>
-      
     </ion-content>
     <ion-footer color="light">
       <ion-list no-lines>
