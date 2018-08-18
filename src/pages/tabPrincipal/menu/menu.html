@@ -7,12 +7,13 @@
     <ion-content>
       <ion-list no-lines>
         <button ion-item *ngFor="let page of listaPages" (click)="showPage(page.component)" menuClose>
+            <ion-icon name="{{page.icon}}" color="primary" item-start></ion-icon>
           {{page.titulo}}
         </button>
         <hr/>
         <ng-container *ngIf="!selectCobro">
           <button  ion-item *ngFor="let pageCobro of listaPagesCobro" (click)="showPage(pageCobro.component)" menuClose>
-            <ion-icon name="home" item-end color="secondary"></ion-icon>
+            <ion-icon name="{{pageCobro.icon}}" item-end color="primary"></ion-icon>
             {{pageCobro.titulo}}
           </button>
         </ng-container>
@@ -20,7 +21,7 @@
     </ion-content>
     <ion-footer color="light">
       <ion-list no-lines>
-        <button ion-item (click)="cerrarSesion()">salir <i item-end style="font-size: 25px" class="fas fa-sign-out-alt"></i></button>
+        <button ion-item (click)="cerrarSesion()">salir <i item-end class="fas fa-sign-out-alt iconSize"></i></button>
         <ion-item style="background-color: rgba(255, 255, 255, 0)">
           <ion-label style="color: black">cobro</ion-label>
           <ion-select [(ngModel)]="cobroSelect" interface="action-sheet" (ionChange)="select($event)" menuClose>

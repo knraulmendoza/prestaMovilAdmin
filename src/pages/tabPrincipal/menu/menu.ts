@@ -35,14 +35,14 @@ export class MenuPage {
   listaBotones=[];
   fecha =  new Date()//`${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`
   listaPages=[
-    {titulo:'Inicio', component: ShowMenuPage},
-    {titulo:'Monitoreo', component: MonitoreoPage},
-    {titulo:'Dispositivos', component: DevicesPage}
+    {titulo:'Inicio', component: ShowMenuPage, icon:'home'},
+    {titulo:'Monitoreo', component: MonitoreoPage, icon:'map'},
+    {titulo:'Dispositivos', component: DevicesPage, icon:'phone-portrait'}
   ]
 
   listaPagesCobro = [
-    {titulo:'Cobro', component:TabsPage},
-    {titulo:'Clientes',component:ClientesPage}
+    {titulo:'Cobro', component:TabsPage,icon:'albums'},
+    {titulo:'Clientes',component:ClientesPage,icon:'contacts'}
   ]
   
   constructor(

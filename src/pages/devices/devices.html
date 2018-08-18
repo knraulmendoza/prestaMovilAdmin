@@ -5,35 +5,38 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Dispositivos</ion-title>
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-list>
     <ion-item-group>
-      <ng-container *ngFor="let device of devices">
-        <ion-item-divider color="light" (click)="abrirDevice(device)">
+      <ng-container *ngFor="let device of devices; let i = index">
+        <ion-item-divider (click)="abrirDevice(i)" [ngClass]="{'section-active': device.open, 'section': !device.open}">
           <ion-icon item-left name="arrow-forward" *ngIf="!device.open"></ion-icon>
           <ion-icon item-left name="arrow-down" *ngIf="device.open"></ion-icon>
           <ion-row>
-            <ion-col col-8>{{device.marca}} ({{device.model}})</ion-col>
+            <ion-col col-8>{{device.device}} ({{device.modelo}})</ion-col>
             <ion-col col-4 text-right>
               <ion-badge color="gris">{{device.users.length}}</ion-badge>
+              <!-- <button ion-button clear (click)="searchDevice(device.modelo)"><i class="fas fa-search"></i></button> -->
             </ion-col>
           </ion-row>
         </ion-item-divider>
         <div *ngIf="device.open">
-          <ion-item *ngFor="let user of device.users">
-            {{user.user}}
-            <strong ion-text color="secondary" item-end>{{user.fecha}}</strong>
-          </ion-item>
+          <ion-card style="padding-left: 30px; padding-top: 0px">
+            <ion-item *ngFor="let user of device.users" >
+              {{user.user}}
+              <strong ion-text color="secondary" item-end>{{user.fecha}}</strong>
+            </ion-item>
+        </ion-card>
         </div>
       </ng-container>
     </ion-item-group>
-    <ion-item *ngFor="let device of devices">
-      {{device.marca}} ({{device.model}})
-    </ion-item>
   </ion-list>
 </ion-content>
