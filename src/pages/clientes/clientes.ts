@@ -19,9 +19,12 @@ import { GlobalService } from '../../services/globales.service';
 export class ClientesPage {
   dateHoy = `${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}`;
   clientes:any[]=[];
+  clientesAux:any[]=[];
   cancelados:number=0;
   activos:number=0;
   can=[];
+  search: string = "";
+  color="secondary";
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: BdService,public globalSer:GlobalService) {
     this.listaClientes();
   }
@@ -78,8 +81,27 @@ export class ClientesPage {
       cli.prestamos.push(prestamo);
       this.clientes.push(cli);
     }
-
+    this.canAndAct();
     // return bandera;
+  }
+  canAndAct(){
+    let canc=0;
+      let act=0;
+      this.can=[];
+      this.clientes.forEach((cliente, index) => {
+        canc=0;
+        act=0;
+        cliente.prestamos.forEach(pres => {
+          if (pres.resta == 0) canc++;
+          else act++;
+        });
+        // ind = index;
+        this.can.push({index:index,cancelados:canc,activos:act});
+      });
+      this.can.forEach(res => {
+        this.clientes[res.index].cancelados=res.cancelados;
+        this.clientes[res.index].activos=res.activos;
+      });
   }
   public listaClientes(){
     this.db.selectWhere('cliente','cobro',this.globalSer.getCobro.id,1).subscribe((res)=>{
@@ -98,30 +120,23 @@ export class ClientesPage {
           })
         });
       });
-      // let ind;
-      let canc=0;
-      let act=0;
-      this.can=[];
-      this.clientes.forEach((cliente, index) => {
-        canc=0;
-        act=0;
-        cliente.prestamos.forEach(pres => {
-          if (pres.resta == 0) canc++;
-          else act++;
-        });
-        // ind = index;
-        this.can.push({index:index,cancelados:canc,activos:act});
-      });
-      this.can.forEach(res => {
-        this.clientes[res.index].cancelados=res.cancelados;
-        this.clientes[res.index].activos=res.activos;
-      });
-      
+      this.clientesAux = this.clientes;
     });
   }
 
   public abrirCliente(i:number){
     this.clientes[i].open = !this.clientes[i].open;
+  }
+
+  public searchCLiente() {
+    this.clientesAux = this.clientes;
+    this.clientesAux = this.clientes.filter(cli => {
+      return (
+        cli.name.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+        cli.lastName.toLowerCase().indexOf(this.search.toLowerCase()) > -1 ||
+        cli.cc.indexOf(this.search) > -1
+      );
+    });
   }
 
 }
