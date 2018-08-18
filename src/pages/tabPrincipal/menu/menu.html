@@ -13,7 +13,7 @@
         <hr/>
         <ng-container *ngIf="!selectCobro">
           <button  ion-item *ngFor="let pageCobro of listaPagesCobro" (click)="showPage(pageCobro.component)" menuClose>
-            <ion-icon name="{{pageCobro.icon}}" item-end color="primary"></ion-icon>
+            <ion-icon name="{{pageCobro.icon}}" item-start color="primary"></ion-icon>
             {{pageCobro.titulo}}
           </button>
         </ng-container>
