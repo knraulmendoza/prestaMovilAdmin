@@ -41,6 +41,7 @@ export class PagoPage {
   pagos: iPagos[] = [];
   restante: number;
   prestamos: iPrestamos[] = [];
+  prestamosAux: iPrestamos[] = [];
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -55,6 +56,15 @@ export class PagoPage {
     if (this.cliente.prestamos.length == 1) {
       this.prestamo = this.cliente.prestamos;
       this.listaPagos(this.prestamo[0].id.toString());
+
+      db.getDatos('cliente',this.cliente.id,1)
+      .valueChanges()
+      .subscribe((res:iUsuario) => {
+        this.prestamosAux = [];
+        res.prestamos.forEach(pres =>{
+          this.prestamosAux.push(pres)
+        })
+      });
     }else this.listaPrestamos();
     
     // this.listaPagos();
@@ -172,8 +182,12 @@ export class PagoPage {
                 if (this.pagos[this.pagos.length - 1].resta == 0) {
                   this.prestamo[0].state = true;
                   this.buscarPrestamo(this.prestamo[0].id);
+                  if (this.prestamosAux.length > 0) {
+                    this.prestamos = this.prestamosAux;
+                  }
                   this.db
                     .updatePrestamo("cliente", this.prestamos, this.cliente.id)
+                    .then(()=>{this.prestamos = []})
                     .catch(() => {
                       console.error("no se pudo cancelar");
                     });

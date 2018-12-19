@@ -154,4 +154,5 @@ export class CuadrePage {
     this.navCtrl.push(GastosPage);
   }
 
+
 }

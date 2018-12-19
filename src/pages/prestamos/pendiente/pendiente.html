@@ -29,8 +29,9 @@
 <ion-content>
       <ion-list>
         <ng-container *ngFor="let cliente of pendientesAux; let i = index">
-          <ion-item (tap)="openPrestamo(cliente,i)" style="padding-top: 0px !important;padding-bottom: 0px !important">
+          <ion-item (tap)="openPrestamo(cliente,i)" (press)="presionado(cliente)" style="padding-top: 0px !important;padding-bottom: 0px !important">
             <ion-row>
+              
               <ion-col col-8>
                 {{cliente.name}} {{cliente.lastName}}
               </ion-col>

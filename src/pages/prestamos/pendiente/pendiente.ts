@@ -58,6 +58,22 @@ export class PendientePage {
     return Math.abs(num);
   }
 
+  /**
+   * presionado
+   */
+  public presionado(cliente:iUsuario) {
+   console.log(cliente.name+' presionado');
+    this.alert.create({
+      title: cliente.name,
+      message: 'Se va a registrar un nuevo prestamo',
+      buttons:[
+        {text: 'si', handler: data =>{
+          this.app.getRootNav().push(NewPrestamoPage, {client: cliente})
+        }}
+      ]
+    }).present();
+  }
+
   public restarFecha(f1, f2): number{
     this.diasFaltantes=0;
     var aFecha1 = f1.split("/");
